@@ -39,3 +39,9 @@ img {
   display: block;
   margin: 0 auto;
 }
+
+button:hover,
+h1 span:hover,
+img:hover {
+  cursor:pointer;
+}

@@ -26,11 +26,15 @@ ff.onclick = (function(/*...args*/) {
     );
 
 const btnElem = document.querySelector("button");
-const h1Elem = document.querySelector("h1");
+const h1SpanElem = document.querySelector("span");
 let userName;
 
 function queryAndSaveNewUserName() {
-  userName = prompt("Please enter your name.", "user")?.trim() || "user";
+  const newName = prompt("Please enter your name.", "user")?.trim();
+  if (!newName) {
+    newName = sessionStorage.getItem("userName") || "user";
+  }
+  userName = newName;
   sessionStorage.setItem("userName", userName);
 }
 
@@ -44,13 +48,15 @@ function assignUserName() {
 
 function setHeader() {
   assignUserName(); 
-  h1Elem.textContent = `Hello, ${userName}!`;
+  h1SpanElem.textContent = userName;
 }
 
 btnElem.onclick = () => {
   queryAndSaveNewUserName();
   setHeader();
 };
+
+h1SpanElem.onclick = btnElem.onclick;
 
 setHeader();
 
